@@ -12,24 +12,28 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-
+  
     const response = await fetch("/api/text-completions", {
       method: "POST",
       body: JSON.stringify({ prompt: `Parafrasea el siguiente texto: ${inputText}` }),
     });
-
+  
     const data = await response.json();
-
+  
     if (data.choices && data.choices.length > 0) {
-      console.log({ responseText: data.choices[0].text });
-      setResponseText(data.choices[0].text);
+      const responseText = data.choices[0].text;
+      for (let i = 0; i < responseText.length; i++) {
+        setTimeout(() => {
+          setResponseText((prev) => prev + responseText[i]);
+        }, i * 50);
+      }
     } else {
       setResponseText("No se encontró ninguna respuesta");
     }
-
+  
     setIsLoading(false);
   };
-
+  
   return (
     <div className="container">
       <div className="header">
@@ -81,6 +85,7 @@ export default function Home() {
     font-size: 1.2rem;
     color: #333333;
   }  
+
   .container {
     display: flex;
     flex-direction: column;
@@ -116,36 +121,28 @@ export default function Home() {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 1rem;
   }
 
   .text-box {
-    width: 48%;
-    margin-bottom: 20px;
-  }
-
-  textarea {
-    width: 100%;
-    max-width: 100%;
-    padding: 10px;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 8px;
     border: none;
-    border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-    margin-right: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
     font-size: 1.2rem;
     font-weight: 600;
     font-family: "Roboto", sans-serif;
-    background-color: #ffffff;
     color: #333333;
-    border: 2px solid #0070f3;
-    resize: vertical;
-    height: 200px;
+    outline: none;
   }
 
   button {
-    padding: 10px;
+    padding: 1rem;
+    border-radius: 8px;
     border: none;
-    border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #0070f3;
     color: white;
     cursor: pointer;
@@ -153,8 +150,9 @@ export default function Home() {
     font-weight: 600;
     font-family: "Roboto", sans-serif;
     transition: background-color 0.2s ease;
-    margin-top: 20px;
-    width: 150px;
+    margin-top: 1rem;
+    width: 200px;
+    height: 3rem;
     margin-right: 10px;
   }
 
@@ -197,7 +195,8 @@ export default function Home() {
     animation-delay: 0.4s;
     animation-fill-mode: forwards;
   }
-      `}</style>
+     `}</style>
     </div>
   );
 }
+
