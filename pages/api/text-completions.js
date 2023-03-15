@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default async function handler(req, res) {
   const prompt = JSON.parse(req.body).prompt // El prompt es la frase o palabra que deseas completar
-  const maxTokens = 1200 // La cantidad máxima de palabras que deseas completar
+  const maxTokens = 2000 // La cantidad máxima de palabras que deseas completar
   const apiUrl = "https://api.openai.com/v1/completions"
 
   const headers = {
