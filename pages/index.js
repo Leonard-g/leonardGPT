@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="container">
       <div className="header">
-        <p>Sigueme en Instagram @gleonard.py</p>
+        <p>@gleonard.py</p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="text-boxes">
