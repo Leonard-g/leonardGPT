@@ -4,7 +4,7 @@ export default function Home() {
   const [inputText, setInputText] = useState("");
   const [responseText, setResponseText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [maxWords, setMaxWords] = useState(1000);
+  const [maxWords, setMaxWords] = useState(686);
 
   const handleInputChange = (event) => {
     const input = event.target.value;
@@ -21,7 +21,7 @@ export default function Home() {
 
     const response = await fetch("/api/text-completions", {
       method: "POST",
-      body: JSON.stringify({ prompt: `Parafrasear: ${inputText}` }),
+      body: JSON.stringify({ prompt: `Parafrasear este texto: ${inputText}` }),
     });
 
     const data = await response.json();
@@ -67,7 +67,7 @@ export default function Home() {
               style={{ height: "300px", width: "100%", padding: "12px", fontSize: "1.2rem", borderRadius: "6px", border: "2px solid #0070f3", backgroundColor: "#ffffff", color: "#333333" }}
             />
           <p>
-            {maxWords - inputText.trim().split(/\s+/).length} palabras restantes
+            {maxWords - inputText.trim().split(/\s+/).length} -
           </p>
           </div>
         </div>
