@@ -4,22 +4,28 @@ export default function Home() {
   const [inputText, setInputText] = useState("");
   const [responseText, setResponseText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [maxWords, setMaxWords] = useState(1000);
 
   const handleInputChange = (event) => {
-    setInputText(event.target.value);
+    const input = event.target.value;
+    const words = input.trim().split(/\s+/);
+    if (words.length > maxWords) {
+      return;
+    }
+    setInputText(input);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-  
+
     const response = await fetch("/api/text-completions", {
       method: "POST",
       body: JSON.stringify({ prompt: `Parafrasear: ${inputText}` }),
     });
-  
+
     const data = await response.json();
-  
+
     if (data.choices && data.choices.length > 0) {
       const responseText = data.choices[0].text;
       for (let i = 0; i < responseText.length; i++) {
@@ -30,7 +36,7 @@ export default function Home() {
     } else {
       setResponseText("No se encontró ninguna respuesta");
     }
-  
+
     setIsLoading(false);
   };
   
@@ -60,6 +66,9 @@ export default function Home() {
               placeholder="..."
               style={{ height: "300px", width: "100%", padding: "12px", fontSize: "1.2rem", borderRadius: "6px", border: "2px solid #0070f3", backgroundColor: "#ffffff", color: "#333333" }}
             />
+          <p>
+            {maxWords - inputText.trim().split(/\s+/).length} palabras restantes
+          </p>
           </div>
         </div>
         <div className="button-container">
