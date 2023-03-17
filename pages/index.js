@@ -15,7 +15,7 @@ export default function Home() {
   
     const response = await fetch("/api/text-completions", {
       method: "POST",
-      body: JSON.stringify({ prompt: `Parafrasea el siguiente texto: ${inputText}` }),
+      body: JSON.stringify({ prompt: `Parafrasear: ${inputText}` }),
     });
   
     const data = await response.json();
