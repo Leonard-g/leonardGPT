@@ -4,24 +4,22 @@ export default function Home() {
   const [inputText, setInputText] = useState("");
   const [responseText, setResponseText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
 
-  
-    }
-    setInputText(input);
+  const handleInputChange = (event) => {
+    setInputText(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-
+  
     const response = await fetch("/api/text-completions", {
       method: "POST",
-      body: JSON.stringify({ prompt: `Parafrasear este texto: ${inputText}` }),
+      body: JSON.stringify({ prompt: `Parafrasea el siguiente texto: ${inputText}` }),
     });
-
+  
     const data = await response.json();
-
+  
     if (data.choices && data.choices.length > 0) {
       const responseText = data.choices[0].text;
       for (let i = 0; i < responseText.length; i++) {
@@ -32,14 +30,14 @@ export default function Home() {
     } else {
       setResponseText("No se encontró ninguna respuesta");
     }
-
+  
     setIsLoading(false);
   };
   
   return (
     <div className="container">
       <div className="header">
-        <p>@gleonard.py</p>
+        <p>Sigueme en Instagram @gleonard.py</p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="text-boxes">
@@ -62,9 +60,6 @@ export default function Home() {
               placeholder="..."
               style={{ height: "300px", width: "100%", padding: "12px", fontSize: "1.2rem", borderRadius: "6px", border: "2px solid #0070f3", backgroundColor: "#ffffff", color: "#333333" }}
             />
-          <p>
-             
-          </p>
           </div>
         </div>
         <div className="button-container">
@@ -204,4 +199,3 @@ export default function Home() {
     </div>
   );
 }
-
