@@ -4,13 +4,9 @@ export default function Home() {
   const [inputText, setInputText] = useState("");
   const [responseText, setResponseText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [maxWords, setMaxWords] = useState(686);
+  
 
-  const handleInputChange = (event) => {
-    const input = event.target.value;
-    const words = input.trim().split(/\s+/);
-    if (words.length > maxWords) {
-      return;
+  
     }
     setInputText(input);
   };
@@ -67,7 +63,7 @@ export default function Home() {
               style={{ height: "300px", width: "100%", padding: "12px", fontSize: "1.2rem", borderRadius: "6px", border: "2px solid #0070f3", backgroundColor: "#ffffff", color: "#333333" }}
             />
           <p>
-            {maxWords - inputText.trim().split(/\s+/).length} -
+             
           </p>
           </div>
         </div>
